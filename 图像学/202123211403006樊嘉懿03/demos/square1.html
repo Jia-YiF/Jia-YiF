@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>实验三 A2 转速可调整的正方形</title>
+    <script id="rot-v-shader" type="x-shader/x-vertex">
+	attribute vec4 vPosition;
+	uniform float theta;
+
+	void main()
+	{
+		float u = cos( theta );
+		float v = sin( theta );
+
+		gl_Position.x = vPosition.x * u - vPosition.y * v;
+		gl_Position.y = vPosition.x * v + vPosition.y * u;
+		gl_Position.z = 0.0;
+		gl_Position.w = 1.0;
+	}
+	</script>
+
+    <script id="rot-f-shader" type="x-shader/x-fragment">
+	precision mediump float;
+
+	void main()
+	{
+		gl_FragColor = vec4( 0.5, 0.8, 0.7, 1.0 );
+	}
+	</script>
+
+    <script type="text/javascript" src="../js/common/webgl-utils.js"></script>
+    <script type="text/javascript" src="../js/common/initShaders.js"></script>
+    <script type="text/javascript" src="../js/common/gl-matrix-min.js"></script>
+    <script type="text/javascript" src="../js/ch03/rotsquare1.js"></script>
+</head>
+
+<body onload="initRotSquare()">
+    <canvas id="rot-canvas" width="512" height="512"></canvas>
+        <div>
+			<h3>控制面板</h3>
+			<button id="direction" onclick="changeDir()">换个转动方向</button><br>
+        Speed  0<input type="range" id="speedcon" min="0" max="100" value="50" step="10"> 100
+		</div>
+		
+</body>
+
+</html>
